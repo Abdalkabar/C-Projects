@@ -1,51 +1,80 @@
+// This file contains the Main() entry point of the application
+// It demonstrates:
+//   - Creating an Employee object and displaying its info
+//   - Using polymorphism to store an Employee in an IQuittable variable
+//   - Calling the Quit() method through the interface type
 using System;
 
-namespace EmployeeApp
+class Program
 {
-    class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            // Create employee1 with Id = 1
-            Employee employee1 = new Employee
-            {
-                Id        = 1,
-                FirstName = "Alice",
-                LastName  = "Johnson"
-            };
+        // ==========================================
+        // INTERFACE AND POLYMORPHISM ASSIGNMENT
+        // ==========================================
 
-            // Create employee2 with the SAME Id as employee1
-            Employee employee2 = new Employee
-            {
-                Id        = 1,
-                FirstName = "Alice",
-                LastName  = "Johnson"
-            };
+        // Print a heading so the user knows what this program does
+        Console.WriteLine("--- Interface & Polymorphism Assignment ---\n");
 
-            // Create employee3 with a DIFFERENT Id
-            Employee employee3 = new Employee
-            {
-                Id        = 2,
-                FirstName = "Bob",
-                LastName  = "Smith"
-            };
+        // -------------------------------------------------------
+        // Create a regular Employee object using the constructor
+        // Pass in the employee's name, job title, and ID number
+        // -------------------------------------------------------
+        Employee employee = new Employee("Sarah Connor", "Software Developer", 1042);
 
-            // Display employee details
-            Console.WriteLine("=== Employee Details ===");
-            Console.WriteLine($"Employee 1 — Id: {employee1.Id}, Name: {employee1.FirstName} {employee1.LastName}");
-            Console.WriteLine($"Employee 2 — Id: {employee2.Id}, Name: {employee2.FirstName} {employee2.LastName}");
-            Console.WriteLine($"Employee 3 — Id: {employee3.Id}, Name: {employee3.FirstName} {employee3.LastName}");
-            Console.WriteLine();
+        // Call DisplayInfo() to print the employee's details to the screen
+        Console.WriteLine("Employee Details:");
+        employee.DisplayInfo();
 
-            // Compare employee1 and employee2 — same Id, should be TRUE
-            Console.WriteLine("=== Comparison Results ===");
-            Console.WriteLine($"employee1 == employee2 (same Id):      {employee1 == employee2}");  // True
-            Console.WriteLine($"employee1 != employee2 (same Id):      {employee1 != employee2}");  // False
-            Console.WriteLine();
+        // Print a blank line for spacing
+        Console.WriteLine();
 
-            // Compare employee1 and employee3 — different Id, should be FALSE
-            Console.WriteLine($"employee1 == employee3 (different Id): {employee1 == employee3}"); // False
-            Console.WriteLine($"employee1 != employee3 (different Id): {employee1 != employee3}"); // True
-        }
+        // -------------------------------------------------------
+        // STEP 3: Polymorphism — store the Employee as an IQuittable type
+        //
+        // This is polymorphism in action:
+        //   - 'quittable' is declared as type IQuittable (the interface)
+        //   - but it holds an Employee object (the implementing class)
+        // This works because Employee implements IQuittable
+        // Through this variable we can only access methods defined in IQuittable
+        // In this case, that means only Quit() is accessible via 'quittable'
+        // -------------------------------------------------------
+        IQuittable quittable = employee;
+
+        // Call Quit() through the IQuittable interface reference
+        // Even though the variable type is IQuittable, C# calls the
+        // Employee's version of Quit() at runtime — this is polymorphism
+        Console.WriteLine("Calling Quit() through IQuittable reference:");
+        quittable.Quit();
+
+        // Print a blank line for spacing
+        Console.WriteLine();
+
+        // -------------------------------------------------------
+        // BONUS: Create a second Employee and call Quit() directly
+        // This shows that any Employee object has access to Quit()
+        // since Employee implements IQuittable
+        // -------------------------------------------------------
+        Console.WriteLine("--- Second Employee ---\n");
+
+        // Create a second Employee object with different details
+        Employee employee2 = new Employee("John Doe", "Project Manager", 2087);
+
+        // Display the second employee's details
+        Console.WriteLine("Employee Details:");
+        employee2.DisplayInfo();
+
+        // Store the second employee as IQuittable type
+        // Again demonstrating that any Employee can be treated as IQuittable
+        IQuittable quittable2 = employee2;
+
+        // Call Quit() on the second employee through the interface reference
+        quittable2.Quit();
+
+        // Print a blank line for spacing
+        Console.WriteLine();
+
+        // Confirm the program has finished executing
+        Console.WriteLine("Program complete.");
     }
 }
