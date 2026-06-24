@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch TechStoreInventory (ASP.NET Core)",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceFolder}/TechStoreInventory/bin/Debug/net8.0/TechStoreInventory.dll",
+            "cwd": "${workspaceFolder}/TechStoreInventory",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            }
+        }
+    ]
+}
