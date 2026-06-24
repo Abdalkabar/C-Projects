@@ -1,12 +1,7 @@
-using Microsoft.EntityFrameworkCore;
-using TechStoreInventory.Data;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<InventoryContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("InventoryManager")));
 
 var app = builder.Build();
 
